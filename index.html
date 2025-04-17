@@ -3,26 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão de Chillers - Slima</title>
+    <title>Americas - Slima</title>
+    <link rel="icon" href="imagens/icone.png" type="image/png">
     <style>
-        /* Estilos profissionais com tema verde mato */
+        /* Estilos profissionais com tema verde mato - Mobile First */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 10px;
-            background-color: #f5f5f5;
         }
         
         header {
             background-color: #2E5E2E; /* Verde mato escuro */
             color: white;
             padding: 15px;
-            border-radius: 5px 5px 0 0;
-            margin-bottom: 15px;
+            border-radius: 0;
+            margin-bottom: 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         h1 {
@@ -42,18 +52,21 @@
             overflow-x: auto;
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
+            background-color: #f0f0f0;
+            padding: 5px 10px 0;
         }
         
         .tab {
-            padding: 10px 15px;
+            padding: 12px 20px;
             background-color: #e1e1e1;
             border: 1px solid #ccc;
-            border-radius: 5px 5px 0 0;
+            border-radius: 8px 8px 0 0;
             cursor: pointer;
             margin-right: 5px;
             transition: all 0.3s ease;
             font-size: 0.9rem;
             flex-shrink: 0;
+            min-width: max-content;
         }
         
         .tab:hover {
@@ -70,10 +83,10 @@
         .content-container {
             background-color: white;
             padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 0 5px 5px 5px;
-            min-height: 400px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: none;
+            border-radius: 0;
+            min-height: calc(100vh - 160px);
+            box-shadow: none;
         }
         
         .tab-content {
@@ -87,20 +100,21 @@
         .machine-info, .client-info {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
         
         .info-card {
             background-color: #f9f9f9;
-            padding: 12px;
-            border-radius: 5px;
-            border-left: 4px solid #4CAF50; /* Verde mais vivo */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             transition: transform 0.2s;
         }
         
         .info-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
         
         .info-card h3 {
@@ -112,8 +126,17 @@
         }
         
         .info-card p, .info-card li {
-            font-size: 0.9rem;
-            margin: 8px 0;
+            font-size: 0.95rem;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        
+        .info-card ul {
+            padding-left: 20px;
+        }
+        
+        .info-card li {
+            margin-bottom: 8px;
         }
         
         .maintenance-history, .contact-history {
@@ -123,19 +146,28 @@
         h2 {
             color: #2E5E2E;
             font-size: 1.3rem;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            min-width: 600px;
         }
         
         th, td {
-            padding: 10px;
+            padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -144,20 +176,24 @@
             background-color: #2E5E2E;
             color: white;
             font-weight: 500;
+            position: sticky;
+            top: 0;
         }
         
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f8f8f8;
         }
         
         tr:hover {
-            background-color: #e9ffe9; /* Verde muito claro para hover */
+            background-color: #e9ffe9;
         }
         
         a {
-            color: #3a7d3a; /* Verde mato médio */
+            color: #3a7d3a;
             text-decoration: none;
             font-weight: 500;
+            display: inline-block;
+            padding: 2px 0;
         }
         
         a:hover {
@@ -166,23 +202,42 @@
         }
         
         footer {
-            margin-top: 20px;
             text-align: center;
-            padding: 12px;
+            padding: 15px;
             color: #666;
             background-color: #f0f0f0;
-            border-radius: 5px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+        
+        /* Melhorias específicas para mobile */
+        @media (max-width: 480px) {
+            .tab {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+            
+            .info-card {
+                padding: 12px;
+            }
+            
+            th, td {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
         }
         
         /* Media Queries para Desktop */
         @media (min-width: 768px) {
-            body {
+            .container {
                 padding: 20px;
             }
             
             header {
+                border-radius: 8px 8px 0 0;
+                margin-bottom: 15px;
                 padding: 20px;
+                position: static;
             }
             
             h1 {
@@ -190,21 +245,21 @@
             }
             
             .tab {
-                padding: 10px 20px;
+                padding: 12px 25px;
                 font-size: 1rem;
             }
             
             .content-container {
-                padding: 20px;
+                padding: 25px;
+                border-radius: 0 0 8px 8px;
+                border: 1px solid #ddd;
+                min-height: 400px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             }
             
             .machine-info, .client-info {
                 grid-template-columns: 1fr 1fr;
                 gap: 20px;
-            }
-            
-            .info-card {
-                padding: 15px;
             }
             
             .info-card h3 {
@@ -220,154 +275,158 @@
             }
             
             table {
-                font-size: 0.9rem;
-            }
-            
-            th, td {
-                padding: 12px 15px;
+                font-size: 0.95rem;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Chiller [Modelo/Número de Série]</h1>
-        <p>Slima - Soluções em Refrigeração Industrial</p>
+        <div class="container">
+            <h1>Chiller [Modelo/Número de Série]</h1>
+            <p>S Lima Serviços de Climatização</p>
+        </div>
     </header>
     
-    <div class="tab-container">
-        <div class="tab active" onclick="openTab('machine')">Informações da Máquina</div>
-        <div class="tab" onclick="openTab('client')">Informações do Cliente</div>
-    </div>
-    
-    <div class="content-container">
-        <div id="machine" class="tab-content active">
-            <div class="machine-info">
-                <div class="info-card">
-                    <h3>Dados Técnicos</h3>
-                    <p><strong>Modelo:</strong> [Modelo do Chiller]</p>
-                    <p><strong>Número de Série:</strong> [Número]</p>
-                    <p><strong>Capacidade:</strong> [Capacidade]</p>
-                    <p><strong>Fluido Refrigerante:</strong> [Tipo]</p>
+    <div class="container">
+        <div class="tab-container">
+            <div class="tab active" onclick="openTab('machine')">Informações da Máquina</div>
+            <div class="tab" onclick="openTab('client')">Informações do Cliente</div>
+        </div>
+        
+        <div class="content-container">
+            <div id="machine" class="tab-content active">
+                <div class="machine-info">
+                    <div class="info-card">
+                        <h3>Dados Técnicos</h3>
+                        <p><strong>Modelo:</strong> [Modelo do Chiller]</p>
+                        <p><strong>Número de Série:</strong> [Número]</p>
+                        <p><strong>Capacidade:</strong> [Capacidade]</p>
+                        <p><strong>Fluido Refrigerante:</strong> [Tipo]</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>Especificações</h3>
+                        <p><strong>Fabricante:</strong> [Nome]</p>
+                        <p><strong>Ano de Fabricação:</strong> [Ano]</p>
+                        <p><strong>Data de Instalação:</strong> [Data]</p>
+                        <p><strong>Última Manutenção:</strong> [Data]</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>Status Atual</h3>
+                        <p><strong>Condição:</strong> [Operacional/Manutenção]</p>
+                        <p><strong>Horas de Operação:</strong> [Horas]</p>
+                        <p><strong>Próxima Manutenção:</strong> [Data]</p>
+                        <p><strong>Alertas:</strong> [Nenhum/Lista]</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>Componentes Principais</h3>
+                        <ul>
+                            <li>Compressor: [Status]</li>
+                            <li>Condensador: [Status]</li>
+                            <li>Evaporador: [Status]</li>
+                            <li>Válvulas: [Status]</li>
+                        </ul>
+                    </div>
                 </div>
                 
-                <div class="info-card">
-                    <h3>Especificações</h3>
-                    <p><strong>Fabricante:</strong> [Nome]</p>
-                    <p><strong>Ano de Fabricação:</strong> [Ano]</p>
-                    <p><strong>Data de Instalação:</strong> [Data]</p>
-                    <p><strong>Última Manutenção:</strong> [Data]</p>
-                </div>
-                
-                <div class="info-card">
-                    <h3>Status Atual</h3>
-                    <p><strong>Condição:</strong> [Operacional/Manutenção]</p>
-                    <p><strong>Horas de Operação:</strong> [Horas]</p>
-                    <p><strong>Próxima Manutenção:</strong> [Data]</p>
-                    <p><strong>Alertas:</strong> [Nenhum/Lista]</p>
-                </div>
-                
-                <div class="info-card">
-                    <h3>Componentes Principais</h3>
-                    <ul>
-                        <li>Compressor: [Status]</li>
-                        <li>Condensador: [Status]</li>
-                        <li>Evaporador: [Status]</li>
-                        <li>Válvulas: [Status]</li>
-                    </ul>
+                <div class="maintenance-history">
+                    <h2>Histórico de Manutenção</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Tipo de Serviço</th>
+                                    <th>Técnico</th>
+                                    <th>Observações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>[Data]</td>
+                                    <td>[Tipo]</td>
+                                    <td>[Nome]</td>
+                                    <td>[Detalhes]</td>
+                                </tr>
+                                <!-- Mais linhas conforme histórico -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             
-            <div class="maintenance-history">
-                <h2>Histórico de Manutenção</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Tipo de Serviço</th>
-                            <th>Técnico</th>
-                            <th>Observações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>[Data]</td>
-                            <td>[Tipo]</td>
-                            <td>[Nome]</td>
-                            <td>[Detalhes]</td>
-                        </tr>
-                        <!-- Mais linhas conforme histórico -->
-                    </tbody>
-                </table>
+            <div id="client" class="tab-content">
+                <div class="client-info">
+                    <div class="info-card">
+                        <h3>Dados do Cliente</h3>
+                        <p><strong>Nome/Razão Social:</strong> Americas</p>
+                        <p><strong>CNPJ:</strong> [Número]</p>
+                        <p><strong>Contato Principal:</strong> [Nome]</p>
+                        <p><strong>Telefone:</strong> [Número]</p>
+                        <p><strong>Email:</strong> [Email]</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>Localização</h3>
+                        <p><strong>Endereço:</strong> [Endereço]</p>
+                        <p><strong>Cidade/Estado:</strong> [Cidade/UF]</p>
+                        <p><strong>Local de Instalação:</strong> [Descrição]</p>
+                        <p><strong>Acesso:</strong> [Informações]</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>Contrato</h3>
+                        <p><strong>Tipo:</strong> [Preventiva/Corretiva]</p>
+                        <p><strong>Número:</strong> [Número]</p>
+                        <p><strong>Validade:</strong> [Data]</p>
+                        <p><strong>Responsável Técnico:</strong> [Nome]</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>Documentos</h3>
+                        <ul>
+                            <li><a href="#">Manual do Equipamento</a></li>
+                            <li><a href="#">Laudo de Instalação</a></li>
+                            <li><a href="#">Termo de Garantia</a></li>
+                            <li><a href="#">Contrato de Manutenção</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="contact-history">
+                    <h2>Histórico de Atendimento</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Tipo</th>
+                                    <th>Responsável</th>
+                                    <th>Relatório</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>[Data]</td>
+                                    <td>[Tipo]</td>
+                                    <td>[Nome]</td>
+                                    <td><a href="#">Ver detalhes</a></td>
+                                </tr>
+                                <!-- Mais linhas conforme histórico -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <div id="client" class="tab-content">
-            <div class="client-info">
-                <div class="info-card">
-                    <h3>Dados do Cliente</h3>
-                    <p><strong>Nome/Razão Social:</strong> Americas</p>
-                    <p><strong>CNPJ:</strong> [Número]</p>
-                    <p><strong>Contato Principal:</strong> [Nome]</p>
-                    <p><strong>Telefone:</strong> [Número]</p>
-                    <p><strong>Email:</strong> [Email]</p>
-                </div>
-                
-                <div class="info-card">
-                    <h3>Localização</h3>
-                    <p><strong>Endereço:</strong> [Endereço]</p>
-                    <p><strong>Cidade/Estado:</strong> [Cidade/UF]</p>
-                    <p><strong>Local de Instalação:</strong> [Descrição]</p>
-                    <p><strong>Acesso:</strong> [Informações]</p>
-                </div>
-                
-                <div class="info-card">
-                    <h3>Contrato</h3>
-                    <p><strong>Tipo:</strong> [Preventiva/Corretiva]</p>
-                    <p><strong>Número:</strong> [Número]</p>
-                    <p><strong>Validade:</strong> [Data]</p>
-                    <p><strong>Responsável Técnico:</strong> [Nome]</p>
-                </div>
-                
-                <div class="info-card">
-                    <h3>Documentos</h3>
-                    <ul>
-                        <li><a href="#">Manual do Equipamento</a></li>
-                        <li><a href="#">Laudo de Instalação</a></li>
-                        <li><a href="#">Termo de Garantia</a></li>
-                        <li><a href="#">Contrato de Manutenção</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="contact-history">
-                <h2>Histórico de Atendimento</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Tipo</th>
-                            <th>Responsável</th>
-                            <th>Relatório</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>[Data]</td>
-                            <td>[Tipo]</td>
-                            <td>[Nome]</td>
-                            <td><a href="#">Ver detalhes</a></td>
-                        </tr>
-                        <!-- Mais linhas conforme histórico -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <footer>
+            <p>Slima Refrigeração Industrial &copy; <script>document.write(new Date().getFullYear())</script> - Todos os direitos reservados</p>
+        </footer>
     </div>
-    
-    <footer>
-        <p>Slima Refrigeração Industrial &copy; <script>document.write(new Date().getFullYear())</script> - Todos os direitos reservados</p>
-    </footer>
     
     <script>
         function openTab(tabName) {
